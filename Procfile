@@ -1,1 +1,1 @@
-web: python autom8.py
+worker: python autom8.py
