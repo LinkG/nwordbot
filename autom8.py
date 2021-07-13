@@ -16,7 +16,7 @@ driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), c
 r = RandomWords()
 
 driver.get('https://discord.com/channels/846425286765314088/853182317911343154')
-time.sleep(10)
+time.sleep(45)
 login_xpath = ['//*[@id="app-mount"]/div[2]/div/div/div/div/form/div/div/div[1]/div[2]/div[1]/div/div[2]/input', '//*[@id="app-mount"]/div[2]/div/div/div/div/form/div/div/div[1]/div[2]/div[2]/div/input', '//*[@id="app-mount"]/div[2]/div/div[2]/div/div/div/div[2]/div[2]/div[2]/div[1]/div[1]/div/div[4]/button[2]']
 driver.implicitly_wait(5)
 login = driver.find_element_by_xpath(login_xpath[0])
