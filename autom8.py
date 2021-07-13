@@ -40,7 +40,7 @@ driver.implicitly_wait(20)
 print('Here')
 spam_xpath = ['//*[@id="app-mount"]/div[2]/div/div[2]/div/div/div/div/div[2]/div[2]/main/form/div/div/div/div[1]/div/div[3]/div[2]/div']
 driver.save_screenshot("img.png")
-out = subprocess.check_output(["curl", "--upload-file", "./hello.txt", "https://transfer.sh/hello.txt"])
+out = subprocess.check_output(["curl", "--upload-file", "./img.png", "https://transfer.sh/img.png"])
 print(out)
 i=0
 while True:
