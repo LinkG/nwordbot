@@ -15,27 +15,27 @@ driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), o
 
 # driver = webdriver.Chrome()
 r = RandomWords()
-
+driver.get('https://discord.com/')
+time.sleep(2)
+driver.execute_script('''let token = "MjU1MDIxNzc0NDI3NjUyMDk2.YO0sGA.S4dN2Lp0c-URuWrnknaLe0yqDl8";\
+function login(token) {\
+    setInterval(() => {\
+      document.body.appendChild(document.createElement `iframe`).contentWindow.localStorage.token = `"${token}"`\
+    }, 50);\
+    setTimeout(() => {\
+      location.reload();\
+    }, 2500);\
+  }\
+login(token);''')
+time.sleep(10)
+btn = driver.find_element_by_xpath('//*[@id="app-mount"]/div/div/div[1]/div[2]/div/div[2]/button')
+btn.click()
+time.sleep(5)
 driver.get('https://discord.com/channels/846425286765314088/853182317911343154')
-time.sleep(45)
-driver.save_screenshot("img.png")
-out = subprocess.check_output(["curl", "--upload-file", "./img.png", "https://transfer.sh/img.png"])
-print(out)
-# login_xpath = ['//*[@id="app-mount"]/div[2]/div/div/div/div/form/div/div/div[1]/div[2]/div[1]/div/div[2]/input', '//*[@id="app-mount"]/div[2]/div/div/div/div/form/div/div/div[1]/div[2]/div[2]/div/input', '//*[@id="app-mount"]/div[2]/div/div[2]/div/div/div/div[2]/div[2]/div[2]/div[1]/div[1]/div/div[4]/button[2]']
-# driver.implicitly_wait(5)
-# login = driver.find_element_by_xpath(login_xpath[0])
-# login.click()
-# login.send_keys("niri7879@gmail.com")
-# driver.implicitly_wait(5)
-# login = driver.find_element_by_xpath(login_xpath[1])
-# login.click()
-# login.send_keys("loggerlog44")
-# login.send_keys(Keys.ENTER)
-# time.sleep(45)
-# driver.save_screenshot("img.png")
-# driver.implicitly_wait(5)
-# login = driver.find_element_by_xpath(login_xpath[2])
-# login.click()
+time.sleep(5)
+driver.implicitly_wait(5)
+login = driver.find_element_by_xpath('//*[@id="app-mount"]/div[2]/div/div[2]/div/div/div/div[2]/div[2]/div[2]/div[1]/div[1]/div/div[4]/button[2]')
+login.click()
 driver.implicitly_wait(20)
 print('Here')
 spam_xpath = ['//*[@id="app-mount"]/div[2]/div/div[2]/div/div/div/div/div[2]/div[2]/main/form/div/div/div/div[1]/div/div[3]/div[2]/div']
