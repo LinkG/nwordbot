@@ -4,7 +4,9 @@ import time
 import os
 from random_word import RandomWords
 import subprocess
-import random
+import chromedriver_autoinstaller
+
+chromedriver_autoinstaller.install()
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
@@ -12,9 +14,9 @@ chrome_options.add_argument("--headless")
 chrome_options.add_argument("window-size=1920,1080")
 chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--no-sandbox")
-driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=chrome_options)
+# driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=chrome_options)
 
-# driver = webdriver.Chrome()
+driver = webdriver.Chrome(options=chrome_options)
 r = RandomWords()
 driver.get('https://discord.com/')
 time.sleep(2)
