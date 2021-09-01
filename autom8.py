@@ -1,92 +1,67 @@
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-import time
-import os
-from random_word import RandomWords
-import subprocess
-import chromedriver_autoinstaller
+import discord
+import asyncpraw
+import random
 
-chromedriver_autoinstaller.install()
+client = discord.Client()
+reddit = asyncpraw.Reddit(
+  client_id = "M-NSwA7CoBeCqIp_eq9mKA",
+  client_secret="cDjfp58VOjH2t_zc-kA7sQLisSwV6A",
+  user_agent="reddit discord bot by u/Lank69G"
+)
+print(reddit.read_only)
 
-chrome_options = webdriver.ChromeOptions()
-chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("window-size=1920,1080")
-chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.add_argument("--no-sandbox")
-# driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=chrome_options)
+@client.event
+async def on_ready():
+  print('We have logged in as {0.user}'.format(client))
 
-driver = webdriver.Chrome(options=chrome_options)
-r = RandomWords()
-driver.get('https://discord.com/')
-time.sleep(2)
-driver.execute_script('''let token = "MjU1MDIxNzc0NDI3NjUyMDk2.YO0sGA.S4dN2Lp0c-URuWrnknaLe0yqDl8";\
-function login(token) {\
-    setInterval(() => {\
-      document.body.appendChild(document.createElement `iframe`).contentWindow.localStorage.token = `"${token}"`\
-    }, 50);\
-    setTimeout(() => {\
-      location.reload();\
-    }, 2500);\
-  }\
-login(token);''')
-time.sleep(10)
-btn = driver.find_element_by_xpath('//*[@id="app-mount"]/div/div/div[1]/div[2]/div/div[2]/button')
-btn.click()
-time.sleep(5)
-driver.get('https://discord.com/channels/846425286765314088/853182317911343154')
-time.sleep(5)
-driver.implicitly_wait(5)
-login = driver.find_element_by_xpath('//*[@id="app-mount"]/div[6]/div[2]/div/div/div[3]/button')
-login.click()
-driver.implicitly_wait(20)
-time.sleep(1)
-login = driver.find_element_by_xpath('//*[@id="app-mount"]/div[2]/div/div[2]/div/div/div/div[2]/div[2]/div[2]/div[1]/div[1]/div/div[4]/button[2]')
-login.click()
-driver.implicitly_wait(20)
-print('Here')
-spam_xpath = ['//*[@id="app-mount"]/div[2]/div/div[2]/div/div/div/div/div[2]/div[2]/main/form/div/div/div/div[1]/div/div[3]/div[2]/div']
-driver.save_screenshot("img.png")
-out = subprocess.check_output(["curl", "--upload-file", "./img.png", "https://transfer.sh/img.png"])
-print(out)
-i=0
-while True:
-    driver.implicitly_wait(5)
-    spam = driver.find_element_by_xpath(spam_xpath[0])
-    spam.click()
-    spam.send_keys("pls beg")
-    driver.implicitly_wait(1)
-    spam.send_keys(Keys.ENTER)
-    spam = driver.find_element_by_xpath(spam_xpath[0])
-    spam.send_keys("pls pm")
-    driver.implicitly_wait(1)
-    spam.send_keys(Keys.ENTER)
-    spam = driver.find_element_by_xpath(spam_xpath[0])
-    time.sleep(2)
-    spam.send_keys("f")
-    driver.implicitly_wait(1)
-    spam.send_keys(Keys.ENTER)
-    spam = driver.find_element_by_xpath(spam_xpath[0])
-    time.sleep(0.4)
-    spam.send_keys("pls fish")
-    driver.implicitly_wait(1)
-    spam.send_keys(Keys.ENTER)
-    spam = driver.find_element_by_xpath(spam_xpath[0])
-    time.sleep(0.4)
-    spam.send_keys("pls dig")
-    driver.implicitly_wait(1)
-    spam.send_keys(Keys.ENTER)
-    spam = driver.find_element_by_xpath(spam_xpath[0])
-    time.sleep(0.4)
-    spam.send_keys("pls gamble 100")
-    driver.implicitly_wait(1)
-    spam.send_keys(Keys.ENTER)
-    spam = driver.find_element_by_xpath(spam_xpath[0])
-    time.sleep(0.4)
-    spam.send_keys("pls slots 10")
-    driver.implicitly_wait(1)
-    spam.send_keys(Keys.ENTER)
-    time.sleep(0.4)
-    time.sleep(45)
-    print(i)
-    i+=1
+@client.event
+async def on_message(message):  
+  if message.author == client.user or message.author.bot:
+    return
+  
+  if message.content.startswith('*tr'):
+    params = message.content.split()
+    subreddit, nums = "gonewild", 1
+    if len(params) > 1:
+      subreddit = params[1]
+    if len(params) > 2:
+      nums = int(params[2])
+    subreddit = await reddit.subreddit(subreddit)
+    posts = subreddit.top(limit=30)
+    posts_num = random.sample(range(1, 30), nums)
+    posts_num.sort()
+    i = 0
+    async for post in posts:
+      if len(posts_num) == 0:
+        break
+      if i == posts_num[0]:
+        await message.channel.send(post.title)
+        await message.channel.send(post.url)
+        posts_num.pop(0)
+      i += 1
+    return
+
+  if message.content.startswith('*hr'):
+    params = message.content.split()
+    subreddit, nums = "gonewild", 1
+    if len(params) > 1:
+      subreddit = params[1]
+    if len(params) > 2:
+      nums = int(params[2])
+    subreddit = await reddit.subreddit(subreddit)
+    posts = subreddit.hot(limit=30)
+    posts_num = random.sample(range(1, 30), nums)
+    posts_num.sort()
+    i = 0
+    async for post in posts:
+      if len(posts_num) == 0:
+        break
+      if i == posts_num[0]:
+        await message.channel.send(post.title)
+        await message.channel.send(post.url)
+        posts_num.pop(0)
+      i += 1
+    return
+
+
+client.run('NDI2NzQ1ODY4MDg3OTg0MTQ5.WrUMDw.a_lbbWRqve5pa5YPsGQifhvw5fc')
