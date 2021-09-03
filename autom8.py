@@ -117,6 +117,7 @@ async def on_message(message):
   for alias in aliases:
     if alias in lower:
       count[str(message.author)] += 1
+      break
       
 
 
