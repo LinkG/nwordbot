@@ -31,7 +31,6 @@ class RepeatedTimer(object):
         self._timer.cancel()
         self.is_running = False
 
-datafile = open('data.txt', 'w')
 dbx = dropbox.Dropbox('ehlGLhaDgTcAAAAAAAAAAcTolrHEUpn6kSiG_G-GoEm4NzxdGudXY2EGe98CMZNB')
 count = defaultdict(int)
 aliases = ["nigger", "nigga", "nig", "nibba", "nibber", "negro", "kneegar", "kneeger"]
@@ -42,13 +41,13 @@ reddit = asyncpraw.Reddit(
   user_agent="reddit discord bot by u/Lank69G"
 )
 
-for line in datafile.readlines():
-  u, c = line.split(',')
-  count[u] = int(c)
-datafile.close()
+with open('data.txt', 'r') as datafile:
+  for line in datafile.readlines():
+    u, c = line.split(',')
+    count[u] = int(c)
 
 def backupdata():
-  with open('data.txt') as datafile:
+  with open('data.txt', 'w') as datafile:
     datafile.truncate()
     mess = '\n'.join([str(x) + "," + str(count[x]) for x in count])
     datafile.write(mess)
