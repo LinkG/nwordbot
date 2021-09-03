@@ -45,11 +45,13 @@ reddit = asyncpraw.Reddit(
 for line in datafile.readlines():
   u, c = line.split(',')
   count[u] = int(c)
+datafile.close()
 
 def backupdata():
-  datafile.truncate()
-  mess = '\n'.join([str(x) + "," + str(count[x]) for x in count])
-  datafile.write(mess)
+  with open('data.txt') as datafile:
+    datafile.truncate()
+    mess = '\n'.join([str(x) + "," + str(count[x]) for x in count])
+    datafile.write(mess)
   dbx.files_upload(datafile.read().encode('utf-8'), '\data.txt', mode=dropbox.files.WriteMode.overwrite)
 
 rt = RepeatedTimer(600, backupdata)
