@@ -52,7 +52,7 @@ def backupdata():
   datafile.write(mess)
   dbx.files_upload(datafile.read().encode('utf-8'), '\data.txt', mode=dropbox.files.WriteMode.overwrite)
 
-rt = RepeatedTimer(1, backupdata)
+rt = RepeatedTimer(600, backupdata)
 print(reddit.read_only)
 
 @client.event
