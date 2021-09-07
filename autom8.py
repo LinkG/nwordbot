@@ -146,8 +146,8 @@ async def on_message(message):
 
   lower  = message.content.lower()
   words = lower.split(' ')
-  for alias in aliases:
-    for word in words:
+  for word in words:
+    for alias in aliases:
       if alias in word:
         count[str(message.author)] += 1
         break
