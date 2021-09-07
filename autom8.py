@@ -34,6 +34,7 @@ dbx = dropbox.Dropbox('ehlGLhaDgTcAAAAAAAAAAcTolrHEUpn6kSiG_G-GoEm4NzxdGudXY2EGe
 count = defaultdict(int)
 aliases = ["nigger", "nigga", "nig", "nibba", "nibber", "negro", "kneegar", "kneeger"]
 client = discord.Client()
+king = ''
 reddit = asyncpraw.Reddit(
   client_id = "M-NSwA7CoBeCqIp_eq9mKA",
   client_secret="cDjfp58VOjH2t_zc-kA7sQLisSwV6A",
@@ -110,10 +111,38 @@ async def on_message(message):
         posts_num.pop(0)
       i += 1
     return
+
+  if message.content.startswith('*nr'):
+    params = message.content.split()
+    subreddit, nums = "gonewild", 1
+    if len(params) > 1:
+      subreddit = params[1]
+    if len(params) > 2:
+      nums = int(params[2])
+    subreddit = await reddit.subreddit(subreddit)
+    posts = subreddit.new(limit=30)
+    posts_num = random.sample(range(1, 30), nums)
+    posts_num.sort()
+    i = 0
+    async for post in posts:
+      if len(posts_num) == 0:
+        break
+      if i == posts_num[0]:
+        await message.channel.send(post.title)
+        await message.channel.send(post.url)
+        posts_num.pop(0)
+      i += 1
+    return
   
   if message.content.startswith('*ncount'):
-    mess = '\n'.join([str(x) + " : " + str(count[x]) for x in count])
+    sort_orders = sorted(count.items(), key=lambda x: x[1], reverse=True)
+    mess = '\n'.join([x[0] + " : " + x[1] for x in sort_orders])
     await message.channel.send(mess)
+
+  if message.content.startswith('*ceo'):
+    sort_orders = sorted(count.items(), key=lambda x: x[1], reverse=True)
+    king = sort_orders[0][0]
+    await message.channel.send("CEO of racism: " + king)
 
   lower  = message.content.lower()
   words = lower.split(' ')
