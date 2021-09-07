@@ -116,10 +116,12 @@ async def on_message(message):
     await message.channel.send(mess)
 
   lower  = message.content.lower()
+  words = lower.split(' ')
   for alias in aliases:
-    if alias in lower:
-      count[str(message.author)] += 1
-      break
+    for word in words:
+      if alias in word:
+        count[str(message.author)] += 1
+        break
       
 
 
