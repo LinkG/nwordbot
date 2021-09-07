@@ -4,7 +4,6 @@ import random
 from collections import defaultdict
 from threading import Timer
 import dropbox
-import pickle
 
 class RepeatedTimer(object):
     def __init__(self, interval, function, *args, **kwargs):
@@ -41,6 +40,7 @@ reddit = asyncpraw.Reddit(
   user_agent="reddit discord bot by u/Lank69G"
 )
 
+dbx.files_download_to_file('data.txt', '/data.txt')
 with open('data.txt', 'r') as datafile:
   for line in datafile.readlines():
     u, c = line.split(',')
