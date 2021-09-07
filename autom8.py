@@ -45,6 +45,7 @@ with open('data.txt', 'r') as datafile:
   for line in datafile.readlines():
     u, c = line.split(',')
     count[u] = int(c)
+  print(count)
 
 def backupdata():
   with open('data.txt', 'w') as datafile:
