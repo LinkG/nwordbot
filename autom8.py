@@ -136,13 +136,13 @@ async def on_message(message):
   
   if message.content.startswith('*ncount'):
     sort_orders = sorted(count.items(), key=lambda x: x[1], reverse=True)
-    mess = '\n'.join([x[0] + " : " + x[1] for x in sort_orders])
+    mess = '\n'.join([str(x[0]) + " : " + str(x[1]) for x in sort_orders])
     await message.channel.send(mess)
 
   if message.content.startswith('*ceo'):
     sort_orders = sorted(count.items(), key=lambda x: x[1], reverse=True)
     king = sort_orders[0][0]
-    await message.channel.send("CEO of racism: " + king)
+    await message.channel.send("CEO of racism: " + str(king))
 
   lower  = message.content.lower()
   words = lower.split(' ')
@@ -154,5 +154,5 @@ async def on_message(message):
       
 
 
-client.run('NDI2NzQ1ODY4MDg3OTg0MTQ5.WrUMDw.a_lbbWRqve5pa5YPsGQifhvw5fc')
-# client.run('NDI1NDk1Njg0NDk0NjU1NDk4.WrB_vA.o4t7MvhPGsafR0cBmbUGgOOQ2D0')
+# client.run('NDI2NzQ1ODY4MDg3OTg0MTQ5.WrUMDw.a_lbbWRqve5pa5YPsGQifhvw5fc')
+client.run('NDI1NDk1Njg0NDk0NjU1NDk4.WrB_vA.o4t7MvhPGsafR0cBmbUGgOOQ2D0')
