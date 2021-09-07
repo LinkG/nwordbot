@@ -51,7 +51,8 @@ def backupdata():
     datafile.truncate()
     mess = '\n'.join([str(x) + "," + str(count[x]) for x in count])
     datafile.write(mess)
-  dbx.files_upload(datafile.read().encode('utf-8'), '\data.txt', mode=dropbox.files.WriteMode.overwrite)
+  with open('data.txt', 'r') as datafile:
+    dbx.files_upload(datafile.read().encode('utf-8'), '/data.txt', mode=dropbox.files.WriteMode.overwrite)
 
 rt = RepeatedTimer(600, backupdata)
 print(reddit.read_only)
