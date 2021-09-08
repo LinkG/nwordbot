@@ -139,6 +139,9 @@ async def on_message(message):
     mess = '\n'.join([str(x[0]) + " : " + str(x[1]) for x in sort_orders])
     await message.channel.send(mess)
 
+  if message.content.startswith('*yajur'):
+    await message.channel.send('<@!452772441454805002>')
+
   if message.content.startswith('*ceo'):
     sort_orders = sorted(count.items(), key=lambda x: x[1], reverse=True)
     king = sort_orders[0][0]
