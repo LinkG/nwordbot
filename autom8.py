@@ -145,7 +145,7 @@ async def on_message(message):
   if message.content.startswith('*ceo'):
     sort_orders = sorted(count.items(), key=lambda x: x[1], reverse=True)
     king = sort_orders[0][0]
-    await message.channel.send("CEO of racism: " + str(king))
+    await message.channel.send("CEO of racism: " + str(king) + "\nCTO of racism:" + '<@!591948423788494850>')
 
   lower  = message.content.lower()
   words = lower.split(' ')
