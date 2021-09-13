@@ -3,7 +3,10 @@ import asyncpraw
 import random
 from collections import defaultdict
 from threading import Timer
+from discord import channel
 import dropbox
+import pafy
+import asyncio
 
 class RepeatedTimer(object):
     def __init__(self, interval, function, *args, **kwargs):
@@ -30,6 +33,10 @@ class RepeatedTimer(object):
         self._timer.cancel()
         self.is_running = False
 
+url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+video = pafy.new(url)
+audio = video.getbestaudio()
+dlf = audio.download()
 dbx = dropbox.Dropbox('ehlGLhaDgTcAAAAAAAAAAcTolrHEUpn6kSiG_G-GoEm4NzxdGudXY2EGe98CMZNB')
 count = defaultdict(int)
 aliases = ["nigger", "nigga", "nig", "nibba", "nibber", "negro", "kneegar", "kneeger"]
@@ -146,6 +153,18 @@ async def on_message(message):
     sort_orders = sorted(count.items(), key=lambda x: x[1], reverse=True)
     king = sort_orders[0][0]
     await message.channel.send("CEO of racism: " + str(king) + "\nCTO of racism:" + '<@!591948423788494850>')
+
+  if message.content.startswith('*play'):
+    vchannel = message.author.voice.voice_channel
+    if vchannel != None:
+      vc = await client.join_voice_channel(vchannel)
+      player = vc.create_ffmpeg_player('vuvuzela.mp3', after=lambda: print('done'))
+      player.start()
+      while not player.is_done():
+        await asyncio.sleep(1)
+      # disconnect after the player has finished
+      player.stop()
+      await vc.disconnect()
 
   lower  = message.content.lower()
   words = lower.split(' ')
