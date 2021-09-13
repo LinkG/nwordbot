@@ -36,7 +36,9 @@ class RepeatedTimer(object):
 url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 video = pafy.new(url)
 audio = video.getbestaudio()
-dlf = audio.download()
+dlf = 'song.mp3'
+audio.download(dlf)
+print(dlf)
 dbx = dropbox.Dropbox('ehlGLhaDgTcAAAAAAAAAAcTolrHEUpn6kSiG_G-GoEm4NzxdGudXY2EGe98CMZNB')
 count = defaultdict(int)
 aliases = ["nigger", "nigga", "nig", "nibba", "nibber", "negro", "kneegar", "kneeger"]
@@ -157,13 +159,13 @@ async def on_message(message):
   if message.content.startswith('*play'):
     vchannel = message.author.voice.channel
     if vchannel != None:
-      vc = await client.join_voice_channel(vchannel)
-      player = vc.create_ffmpeg_player(dlf, after=lambda: print('done'))
-      player.start()
-      while not player.is_done():
+      vc = await vchannel.connect()
+      vc.play(discord.FFmpegPCMAudio(dlf), after=lambda e: print('done', e))
+      vc.start()
+      while not vc.is_done():
         await asyncio.sleep(1)
       # disconnect after the player has finished
-      player.stop()
+      vc.stop()
       await vc.disconnect()
 
   lower  = message.content.lower()
