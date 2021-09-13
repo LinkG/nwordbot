@@ -38,6 +38,7 @@ video = pafy.new(url)
 audio = video.getbestaudio()
 dlf = 'song.mp3'
 audio.download(dlf)
+vc = None
 print(dlf)
 dbx = dropbox.Dropbox('ehlGLhaDgTcAAAAAAAAAAcTolrHEUpn6kSiG_G-GoEm4NzxdGudXY2EGe98CMZNB')
 count = defaultdict(int)
@@ -173,6 +174,10 @@ async def on_message(message):
       vc.stop()
       await vc.disconnect()
 
+  if message.content.startswith('*dc'):
+    vc.stop()
+    await vc.disconnect()
+  
   lower  = message.content.lower()
   words = lower.split(' ')
   for word in words:
