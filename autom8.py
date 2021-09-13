@@ -155,7 +155,7 @@ async def on_message(message):
     await message.channel.send("CEO of racism: " + str(king) + "\nCTO of racism:" + '<@!591948423788494850>')
 
   if message.content.startswith('*play'):
-    vchannel = message.author.voice.voice_channel
+    vchannel = message.author.voice.channel
     if vchannel != None:
       vc = await client.join_voice_channel(vchannel)
       player = vc.create_ffmpeg_player('vuvuzela.mp3', after=lambda: print('done'))
