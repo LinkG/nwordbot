@@ -158,7 +158,7 @@ async def on_message(message):
     vchannel = message.author.voice.channel
     if vchannel != None:
       vc = await client.join_voice_channel(vchannel)
-      player = vc.create_ffmpeg_player('vuvuzela.mp3', after=lambda: print('done'))
+      player = vc.create_ffmpeg_player(dlf, after=lambda: print('done'))
       player.start()
       while not player.is_done():
         await asyncio.sleep(1)
