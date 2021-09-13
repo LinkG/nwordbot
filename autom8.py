@@ -158,7 +158,7 @@ async def on_message(message):
 
   if message.content.startswith('*play'):
     link = message.content.split(' ')[1]
-    video = pafy.new(url)
+    video = pafy.new(link)
     audio = video.getbestaudio()
     dlf = 'song.mp3'
     audio.download(dlf)
