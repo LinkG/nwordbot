@@ -157,10 +157,15 @@ async def on_message(message):
     await message.channel.send("CEO of racism: " + str(king) + "\nCTO of racism:" + '<@!591948423788494850>')
 
   if message.content.startswith('*play'):
+    link = message.content.split(' ')[1]
+    video = pafy.new(url)
+    audio = video.getbestaudio()
+    dlf = 'song.mp3'
+    audio.download(dlf)
     vchannel = message.author.voice.channel
     if vchannel != None:
       vc = await vchannel.connect()
-      vc.play(discord.FFmpegPCMAudio(dlf), after=lambda e: print('done', e))
+      vc.play(discord.FFmpegPCMAudio(dlf))
       vc.start()
       while not vc.is_done():
         await asyncio.sleep(1)
