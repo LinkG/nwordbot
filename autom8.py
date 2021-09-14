@@ -6,7 +6,10 @@ from threading import Timer
 from discord import channel
 import dropbox
 import pafy
+import os
 import asyncio
+import urllib.request
+import re
 
 class RepeatedTimer(object):
     def __init__(self, interval, function, *args, **kwargs):
@@ -158,10 +161,14 @@ async def on_message(message):
     await message.channel.send("CEO of racism: " + str(king) + "\nCTO of racism:" + '<@!591948423788494850>')
 
   if message.content.startswith('*play'):
-    link = message.content.split(' ')[1]
+    search_keyword='+'.join(message.content[message.content.index(' ')+1:].split(' '))
+    html = urllib.request.urlopen("https://www.youtube.com/results?search_query=" + search_keyword)
+    video_ids = re.findall(r"watch\?v=(\S{11})", html.read().decode())
+    link = "https://www.youtube.com/watch?v=" + video_ids[0]
     video = pafy.new(link)
     audio = video.getbestaudio()
     dlf = 'song.mp3'
+    os.remove(dlf)
     audio.download(dlf)
     vchannel = message.author.voice.channel
     if vchannel != None:
