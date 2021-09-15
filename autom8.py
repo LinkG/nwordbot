@@ -194,3 +194,6 @@ async def on_message(message):
         break
       
 
+
+client.run('NDI2NzQ1ODY4MDg3OTg0MTQ5.WrUMDw.GT-8sxsGw_xTrfVVujQRRauQOMI')
+# client.run('NDI1NDk1Njg0NDk0NjU1NDk4.WrB_vA.1HPnM4HLNJwCw6kCOowxhLY_WmY')
