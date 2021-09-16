@@ -43,14 +43,14 @@ dlf = 'song.mp3'
 audio.download(dlf)
 vc = None
 print(dlf)
-dbx = dropbox.Dropbox('ehlGLhaDgTcAAAAAAAAAAcTolrHEUpn6kSiG_G-GoEm4NzxdGudXY2EGe98CMZNB')
+dbx = dropbox.Dropbox('')
 count = defaultdict(int)
 aliases = ["nigger", "nigga", "nig", "nibba", "nibber", "negro", "kneegar", "kneeger"]
 client = discord.Client()
 king = ''
 reddit = asyncpraw.Reddit(
   client_id = "M-NSwA7CoBeCqIp_eq9mKA",
-  client_secret="cDjfp58VOjH2t_zc-kA7sQLisSwV6A",
+  client_secret="",
   user_agent="reddit discord bot by u/Lank69G"
 )
 
